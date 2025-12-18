@@ -6,6 +6,8 @@
         public string UserName { get; private set; }
         public int UserAge { get; private set; }
 
+        public ICollection<Transaction> Transactions { get; }
+
         protected User() { }
 
         public User(string userName, int userAge)

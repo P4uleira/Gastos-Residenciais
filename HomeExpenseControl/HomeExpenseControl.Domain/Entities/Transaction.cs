@@ -77,7 +77,4 @@ namespace HomeExpenseControl.Domain.Entities
             UserId = user.idUser;
         }
     }
-
-
-}
 }
