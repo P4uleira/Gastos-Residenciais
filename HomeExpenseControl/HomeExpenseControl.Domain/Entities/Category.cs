@@ -7,7 +7,7 @@ namespace HomeExpenseControl.Domain.Entities
         public Guid idCategory { get; private set; }
         public string CategoryDescription { get; private set; }
         public CategoryPurposeEnum CategoryPurpose { get; private set; }
-
+        public ICollection<Transaction> Transactions { get; }
         protected Category() { }
 
         public Category(string categoryDescription, CategoryPurposeEnum categoryPurpose)
