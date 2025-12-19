@@ -53,17 +53,6 @@ namespace HomeExpenseControl.Domain.Entities
             if (category is null)
                 throw new ArgumentException("Categoria é obrigatória.");
 
-            if (User.UserAge < 18 && TransactionType == TransactionTypeEnum.Receita)
-                throw new ArgumentException("Usuários menores de 18 anos só podem registrar despesas.");
-
-            if (category.CategoryPurpose != CategoryPurposeEnum.Ambas &&
-                (TransactionTypeEnum)category.CategoryPurpose != TransactionType)
-            {
-                throw new ArgumentException(
-                    $"Categoria com finalidade {category.CategoryPurpose} não é compatível com a transação {TransactionType}."
-                );
-            }
-
             Category = category;
             CategoryId = category.idCategory;
         }
