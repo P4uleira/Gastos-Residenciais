@@ -26,7 +26,7 @@
 
         public void SetUserAge(int userAge)
         {
-            if(userAge < 0) 
+            if(userAge <= 0) 
                 throw new ArgumentException("A idade deve ser maior que zero");
 
             UserAge = userAge;

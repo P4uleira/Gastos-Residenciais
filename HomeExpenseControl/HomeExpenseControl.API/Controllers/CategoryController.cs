@@ -21,16 +21,14 @@ namespace HomeExpenseControl.Api.Controllers
         public async Task<ActionResult<IEnumerable<CategoryResponse>>> GetAll()
         {
             var categoryList = await _categoryService.GetAllCategories();
-            var userResponse = categoryList.Select(category => new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
-            return Ok(userResponse);
+            var categoryResponse = categoryList.Select(category => new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
+            return Ok(categoryResponse);
         }
 
         [HttpGet("{idCategory}")]
         public async Task<ActionResult<CategoryResponse>> GetById(Guid idCategory)
         {
             var category = await _categoryService.GetCategoryById(idCategory);
-            if (category == null)
-                return NotFound();
 
             return Ok(new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
         }
@@ -38,9 +36,17 @@ namespace HomeExpenseControl.Api.Controllers
         [HttpPost]
         public async Task<ActionResult> Create(CategoryRequest categoryRequest)
         {
-            var category = new Category (categoryRequest.CategoryDescription, categoryRequest.CategoryPurpose);
-            await _categoryService.CreateCategory(category);
-            return Ok();
+            try
+            {
+                var category = new Category(categoryRequest.CategoryDescription, categoryRequest.CategoryPurpose);
+                await _categoryService.CreateCategory(category);
+
+                return Ok(new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
     }

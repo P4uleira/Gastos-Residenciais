@@ -1,5 +1,4 @@
-﻿using HomeExpenseControl.Domain.Entities;
-using HomeExpenseControl.Domain.Enums;
+﻿using HomeExpenseControl.Domain.Enums;
 
 namespace HomeExpenseControl.Api.DTO.Requests
 {

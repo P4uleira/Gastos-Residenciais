@@ -1,9 +1,11 @@
-﻿using HomeExpenseControl.Domain.Enums;
+﻿using System.ComponentModel.DataAnnotations;
+using HomeExpenseControl.Domain.Enums;
 
 namespace HomeExpenseControl.Domain.Entities
 {
     public class Category
     {
+        
         public Guid idCategory { get; private set; }
         public string CategoryDescription { get; private set; }
         public CategoryPurposeEnum CategoryPurpose { get; private set; }
