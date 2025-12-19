@@ -15,7 +15,9 @@ namespace HomeExpenseControl.Domain.Services
 
         public async Task CreateCategory(Category category)
         {
-            await _categoryRepository.AddAsync(category);
+            var newCategory = new Category(category.CategoryDescription, category.CategoryPurpose);
+
+            await _categoryRepository.AddAsync(newCategory);
         }
         public async Task<Category> GetCategoryById(Guid idCategory)
         {

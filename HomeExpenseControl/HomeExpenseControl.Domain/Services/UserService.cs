@@ -15,7 +15,9 @@ namespace HomeExpenseControl.Domain.Services
 
         public async Task CreateUser(User user)
         {
-            await _userRepository.AddAsync(user);
+            var newUser = new User(user.UserName, user.UserAge);
+
+            await _userRepository.AddAsync(newUser);
         }
 
         public async Task DeleteUser(Guid idUser)

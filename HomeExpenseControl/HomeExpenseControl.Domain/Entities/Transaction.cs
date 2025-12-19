@@ -1,4 +1,5 @@
 ﻿using HomeExpenseControl.Domain.Enums;
+using HomeExpenseControl.Domain.Exceptions;
 
 namespace HomeExpenseControl.Domain.Entities
 {
@@ -13,21 +14,21 @@ namespace HomeExpenseControl.Domain.Entities
         public Guid UserId { get; private set; }
         public User User { get; private set; }
 
-        protected Transaction() { } // EF
+        protected Transaction() { }
 
-        public Transaction(string transactionDescription, decimal transactionAmount, TransactionTypeEnum transactionType, Category category, User user)
+        public Transaction(string transactionDescription, decimal transactionAmount, TransactionTypeEnum transactionType, Guid categoryId, Guid userId)
         {
             SetDescription(transactionDescription);
             SetValue(transactionAmount);
             SetType(transactionType);
-            SetCategory(category);
-            SetUser(user);
+            SetCategory(categoryId);
+            SetUser(userId);
         }
 
         public void SetDescription(string transactionDescription)
         {
             if (string.IsNullOrWhiteSpace(transactionDescription))
-                throw new ArgumentException("Descrição da transação é obrigatória.");
+                throw new DomainException("Descrição da transação é obrigatória.");
 
             TransactionDescription = transactionDescription;
         }
@@ -35,7 +36,7 @@ namespace HomeExpenseControl.Domain.Entities
         public void SetValue(decimal transactionAmount)
         {
             if (transactionAmount <= 0)
-                throw new ArgumentException("O valor da transação deve ser positivo.");
+                throw new DomainException("O valor da transação deve ser positivo.");
 
             TransactionAmount = transactionAmount;
         }
@@ -43,27 +44,25 @@ namespace HomeExpenseControl.Domain.Entities
         private void SetType(TransactionTypeEnum transactionType)
         {
             if (!Enum.IsDefined(typeof(TransactionTypeEnum), transactionType))
-                throw new ArgumentException("Tipo de transação inválido.");
+                throw new DomainException("Tipo de transação inválido.");
 
             TransactionType = transactionType;
         }
 
-        public void SetCategory(Category category)
+        public void SetCategory(Guid categoryId)
         {
-            if (category is null)
-                throw new ArgumentException("Categoria é obrigatória.");
+            if (categoryId == Guid.Empty)
+                throw new DomainException("Categoria é obrigatória.");
 
-            Category = category;
-            CategoryId = category.idCategory;
+            CategoryId = categoryId;
         }
 
-        private void SetUser(User user)
+        private void SetUser(Guid userId)
         {
-            if (user is null)
-                throw new ArgumentException("Usuário é obrigatório.");
+            if (userId == Guid.Empty)
+                throw new DomainException("Usuário é obrigatório.");
 
-            User = user;
-            UserId = user.idUser;
+            UserId = userId;
         }
     }
 }
