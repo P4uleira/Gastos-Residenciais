@@ -7,5 +7,7 @@ namespace HomeExpenseControl.Domain.Interfaces.Services
         Task CreateTransaction(Transaction transaction);
         Task<Transaction> GetTransactionById(Guid idTransaction);
         Task<IEnumerable<Transaction>> GetAllTransactions();
+        Task<IEnumerable<UserTotals>> GetTotalsByUserAsync();
+        Task<OverallTotals> GetOverallTotals();
     }
 }

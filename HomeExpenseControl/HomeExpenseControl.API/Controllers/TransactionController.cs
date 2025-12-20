@@ -49,5 +49,21 @@ namespace HomeExpenseControl.Api.Controllers
                 throw new Exception(ex.Message);
             }
         }
+
+        [HttpGet("totals")]
+        public async Task<ActionResult<IEnumerable<UserTotalsResponse>>> GetUserTotalsAsync()
+        {
+            var transactionList = await _transactionService.GetTotalsByUserAsync();
+            var transactionResponse = transactionList.Select(transaction => new UserTotalsResponse(transaction.UserName, transaction.TotalIncome, transaction.TotalExpense, transaction.Balance));
+            return Ok(transactionResponse);
+        }
+
+        [HttpGet("overall_totals")]
+        public async Task<ActionResult<OverallTotalsResponse>> GetOverallTotals()
+        {
+            var overallTotals = await _transactionService.GetOverallTotals();
+            var overallTotalsResponse = new OverallTotalsResponse(overallTotals.TotalIncome, overallTotals.TotalExpense, overallTotals.Balance);
+            return Ok(overallTotalsResponse);
+        }
     }
 }
