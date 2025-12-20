@@ -24,7 +24,7 @@ namespace HomeExpenseControl.Infra.Migrations
 
             modelBuilder.Entity("HomeExpenseControl.Domain.Entities.Category", b =>
                 {
-                    b.Property<Guid>("idCategory")
+                    b.Property<Guid>("IdCategory")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ID_CATEGORY");
@@ -39,7 +39,7 @@ namespace HomeExpenseControl.Infra.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("CATEGORY_PURPOSE");
 
-                    b.HasKey("idCategory");
+                    b.HasKey("IdCategory");
 
                     b.ToTable("TB_CATEGORY", (string)null);
                 });

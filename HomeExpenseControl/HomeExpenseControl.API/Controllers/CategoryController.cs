@@ -21,16 +21,16 @@ namespace HomeExpenseControl.Api.Controllers
         public async Task<ActionResult<IEnumerable<CategoryResponse>>> GetAll()
         {
             var categoryList = await _categoryService.GetAllCategories();
-            var categoryResponse = categoryList.Select(category => new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
+            var categoryResponse = categoryList.Select(category => new CategoryResponse(category.IdCategory, category.CategoryDescription, category.CategoryPurpose));
             return Ok(categoryResponse);
         }
 
-        [HttpGet("{idCategory}")]
+        [HttpGet("{IdCategory}")]
         public async Task<ActionResult<CategoryResponse>> GetById(Guid idCategory)
         {
             var category = await _categoryService.GetCategoryById(idCategory);
 
-            return Ok(new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
+            return Ok(new CategoryResponse(category.IdCategory, category.CategoryDescription, category.CategoryPurpose));
         }
 
         [HttpPost]
@@ -41,7 +41,7 @@ namespace HomeExpenseControl.Api.Controllers
                 var category = new Category(categoryRequest.CategoryDescription, categoryRequest.CategoryPurpose);
                 await _categoryService.CreateCategory(category);
 
-                return Ok(new CategoryResponse(category.idCategory, category.CategoryDescription, category.CategoryPurpose));
+                return Ok(new CategoryResponse(category.IdCategory, category.CategoryDescription, category.CategoryPurpose));
             }
             catch (Exception ex)
             {

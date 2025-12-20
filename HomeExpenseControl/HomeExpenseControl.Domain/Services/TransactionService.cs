@@ -32,7 +32,7 @@ namespace HomeExpenseControl.Domain.Services
             if ((CategoryPurposeEnum)transaction.TransactionType != category.CategoryPurpose)
                 throw new DomainException("Categoria incompatível com o tipo da transação");
 
-            var newTransaction = new Transaction(transaction.TransactionDescription, transaction.TransactionAmount, transaction.TransactionType, category.idCategory, user.idUser);
+            var newTransaction = new Transaction(transaction.TransactionDescription, transaction.TransactionAmount, transaction.TransactionType, category.IdCategory, user.idUser);
 
             await _transactionRepository.AddAsync(transaction);
         }
@@ -45,6 +45,16 @@ namespace HomeExpenseControl.Domain.Services
         public async Task<IEnumerable<Transaction>> GetAllTransactions()
         {
             return await _transactionRepository.GetAllAsync();
+        }
+
+        public async Task<IEnumerable<UserTotals>> GetTotalsByUserAsync()
+        {
+            return await _transactionRepository.GetTotalsByUserAsync();
+        }
+
+        public async Task<OverallTotals> GetOverallTotals()
+        {
+            return await _transactionRepository.GetOverallTotals();
         }
     }
 }

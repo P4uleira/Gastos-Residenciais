@@ -7,5 +7,7 @@ namespace HomeExpenseControl.Domain.Interfaces.Repositories
         Task<Transaction> GetByIdAsync(Guid idTransaction);
         Task<IEnumerable<Transaction>> GetAllAsync();
         Task AddAsync(Transaction transaction);
+        Task<IEnumerable<UserTotals>> GetTotalsByUserAsync();
+        Task<OverallTotals> GetOverallTotals();
     }
 }
