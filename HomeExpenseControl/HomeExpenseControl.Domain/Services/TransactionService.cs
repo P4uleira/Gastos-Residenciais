@@ -29,7 +29,7 @@ namespace HomeExpenseControl.Domain.Services
             var category = await _categoryRepository.GetByIdAsync(transaction.CategoryId)
                 ?? throw new DomainException("Categoria não encontrada");
 
-            if ((CategoryPurposeEnum)transaction.TransactionType != category.CategoryPurpose)
+            if ((CategoryPurposeEnum)transaction.TransactionType != category.CategoryPurpose && CategoryPurposeEnum.Ambas != category.CategoryPurpose)
                 throw new DomainException("Categoria incompatível com o tipo da transação");
 
             var newTransaction = new Transaction(transaction.TransactionDescription, transaction.TransactionAmount, transaction.TransactionType, category.IdCategory, user.idUser);
