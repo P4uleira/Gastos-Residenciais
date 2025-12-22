@@ -1,0 +1,22 @@
+.botao {
+    padding: 1rem;
+    font-size: 1rem;;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: auto;
+    height: 51px;
+}
+
+.default {
+    color: white;
+    background-color: #252530;
+}
+
+.icon {
+    background: none;
+    font-size: 1.5rem;
+    border: none;
+    padding: 0.5rem;
+    color: #333;
+}

@@ -39,11 +39,11 @@ namespace HomeExpenseControl.Infra.Repositories
 
                     UserName =  u.UserName,
                     TotalIncome = u.Transactions
-                        .Where(t => t.TransactionType == TransactionTypeEnum.Receita)
+                        .Where(t => t.TransactionType == TransactionTypeEnum.Receita || t.Category.CategoryPurpose == CategoryPurposeEnum.Ambas)
                         .Sum(t => (decimal?)t.TransactionAmount) ?? 0,
 
                     TotalExpense = u.Transactions
-                        .Where(t => t.TransactionType == TransactionTypeEnum.Despesa)
+                        .Where(t => t.TransactionType == TransactionTypeEnum.Despesa || t.Category.CategoryPurpose == CategoryPurposeEnum.Ambas)
                         .Sum(t => (decimal?)t.TransactionAmount) ?? 0
                 })
                 .Select(x => new UserTotals
@@ -63,11 +63,11 @@ namespace HomeExpenseControl.Infra.Repositories
                 .Select(g => new OverallTotals
                 {
                     TotalIncome = g
-                        .Where(t => t.TransactionType == TransactionTypeEnum.Receita)
+                        .Where(t => t.TransactionType == TransactionTypeEnum.Receita || t.Category.CategoryPurpose == CategoryPurposeEnum.Ambas)
                         .Sum(t => (decimal?)t.TransactionAmount) ?? 0,
 
                     TotalExpense = g
-                        .Where(t => t.TransactionType == TransactionTypeEnum.Despesa)
+                        .Where(t => t.TransactionType == TransactionTypeEnum.Despesa || t.Category.CategoryPurpose == CategoryPurposeEnum.Ambas)
                         .Sum(t => (decimal?)t.TransactionAmount) ?? 0
                 })
                 .Select(x => new OverallTotals
